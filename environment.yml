@@ -1,3 +1,4 @@
+name: mandown
 channels:
   - conda-forge
   - defaults
