@@ -12,6 +12,7 @@ dependencies:
   - cookiecutter
   - watermark
   - tectonic
+  - coverage
   - pip
   - pip:
     - pandoc-include
