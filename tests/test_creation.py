@@ -49,7 +49,7 @@ def test_makefile(default_baked_project):
 
 
 def test_setup(default_baked_project):
-    makefile_path = os.path.join(default_baked_project, "setup.py")
+    makefile_path = os.path.join(default_baked_project, "pyproject.toml")
 
     assert os.path.exists(makefile_path)
     assert no_curlies(makefile_path)
