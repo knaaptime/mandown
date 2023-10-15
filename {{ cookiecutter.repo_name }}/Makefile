@@ -20,7 +20,8 @@ LASTDRAFT = submitted
 
 ## Set up python interpreter environment
 environment:
-	mamba env create -f environment.yml
+	mamba env create -f environment.yml ;\
+	pip install -e . --no-deps
 
 ## Update the environment in case of changes to dependencies
 environment-update:

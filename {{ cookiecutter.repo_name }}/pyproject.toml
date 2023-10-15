@@ -1,0 +1,58 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "{{ cookiecutter.python_module_name }}"
+dynamic = ["version"]
+description = "{{ cookiecutter.description }}"
+readme = "README.md"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: OS Independent",
+    "Intended Audience :: Science/Research",
+]
+requires-python = ">=3.8"
+
+[tool.setuptools.packages.find]
+include = [
+    "{{ cookiecutter.python_module_name }}",
+    "{{ cookiecutter.python_module_name }}.*"
+]
+
+[project.optional-dependencies]
+dev = ["pre-commit"]
+docs = [
+    "nbsphinx",
+    "numpydoc",
+    "pandoc",
+    "sphinx",
+    "sphinxcontrib-bibtex",
+    "sphinx_bootstrap_theme",
+    "mkdocs-jupyter",
+    "myst-parser"
+]
+
+[tool.black]
+line-length = 88
+
+[tool.ruff]
+line-length = 88
+select = ["E", "F", "W", "I", "UP", "N", "B", "A", "C4", "SIM", "ARG"]
+target-version = "py38"
+ignore = [
+    "B006",
+    "B008",
+    "B009",
+    "B010",
+    "C408",
+    "E731",
+    "F401",
+    "F403",
+    "N803",
+    "N806",
+    "N999",
+    "UP007"
+]
+exclude = ["{{ cookiecutter.python_module_name }}/tests/*", "docs/*"]
