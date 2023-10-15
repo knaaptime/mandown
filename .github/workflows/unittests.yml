@@ -18,7 +18,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
         environment-file:
-          - environment.yml
+          - [environment.yml]
     defaults:
       run:
         shell: bash -l {0}
@@ -47,7 +47,7 @@ jobs:
           failure()
           && steps.status.outcome == 'failure'
           && github.event_name == 'schedule'
-          && github.repository_owner == 'oturns'
+          && github.repository_owner == 'knaaptime'
         uses: xarray-contrib/issue-from-pytest-log@v1
         with:
           log-path: pytest-log.jsonl
