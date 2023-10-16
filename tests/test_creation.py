@@ -93,7 +93,10 @@ def test_paper(default_baked_project):
         capture_output=True,
         text=True,
     )
+
     warn(output.stdout, stacklevel=1)
+    warn(output.stderr, stacklevel=1)
+
     paper_path = os.path.join(
         default_baked_project, "paper", "compiled", "project_name.pdf"
     )
