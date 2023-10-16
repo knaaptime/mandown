@@ -9,6 +9,7 @@ dependencies:
   - pandoc >=2.11
   - pandoc-crossref >=0.3.10
   - pytest
+  - pytest-cov
   - cookiecutter
   - watermark
   - tectonic
