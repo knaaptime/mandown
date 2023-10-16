@@ -3,6 +3,8 @@ import shutil
 import subprocess
 from cookiecutter import main
 import pytest
+from warnings import warn
+
 
 CCDS_ROOT = os.path.abspath(os.path.join(__file__, os.pardir, os.pardir))
 
@@ -91,7 +93,7 @@ def test_paper(default_baked_project):
         capture_output=True,
         text=True,
     )
-    print(output.stdout)
+    warn(output.stdout, stacklevel=1)
     paper_path = os.path.join(
         default_baked_project, "paper", "compiled", "project_name.pdf"
     )
