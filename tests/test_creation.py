@@ -70,8 +70,8 @@ def test_folders(default_baked_project):
 
 
 def no_curlies(filepath):
-    """ Utility to make sure no curly braces appear in a file.
-        That is, was jinja able to render everthing?
+    """Utility to make sure no curly braces appear in a file.
+    That is, was jinja able to render everthing?
     """
     with open(filepath, "r") as f:
         data = f.read()
@@ -85,7 +85,14 @@ def no_curlies(filepath):
 
 def test_paper(default_baked_project):
     """Test whether the paper gets compiled."""
-    output = subprocess.run(f" cd {default_baked_project}; make paper", shell=True, capture_output=True, text=True)
-    print(output)
-    paper_path = os.path.join(default_baked_project, f"paper/compiled/project_name.pdf")
+    output = subprocess.run(
+        f" cd {default_baked_project}; make paper",
+        shell=True,
+        capture_output=True,
+        text=True,
+    )
+    print(output.stdout)
+    paper_path = os.path.join(
+        default_baked_project, "paper", "compiled", "project_name.pdf"
+    )
     assert os.path.exists(paper_path)
