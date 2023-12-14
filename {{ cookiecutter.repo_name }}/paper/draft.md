@@ -3,7 +3,7 @@ title: A Template for Data-Centric Manuscripting in Markdown
 author:
 - name: Elijah Knaap
   affiliation: San Diego State University
-  email: knaap@ucr.edu
+  email: eknaap@sdsu.edu
 - name: Someone Else
   affiliation: University of Neverland
   email: someone@neverland.edu
@@ -26,7 +26,21 @@ geometry: margin=1in
 fontsize: 10pt # for fancy_article use 11
 thanks: "This work is supported by NSF Grant XXXXXX"
 anonymous: False  # removes author information for blind review
-
+pandoc-latex-admonition:  # define different colors for each author
+  - classes: [auth1]
+    color: blue
+    position: left
+    linewidth: 4
+    nobreak: true
+    margin: -8
+  - classes: [auth2]
+    color: red
+numbersections: true
+header-includes:  | #[]  
+# additional latex pkgs if necessary
+# no need to install these, tectonic will handle everything
+# (no need to keep longtable)
+  \usepackage{longtable}
 ---
 
 !include introduction.md

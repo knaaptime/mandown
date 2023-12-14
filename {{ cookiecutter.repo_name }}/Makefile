@@ -36,8 +36,7 @@ environment-freeze:
 
 ## Create a static docker image from a conda-lock file
 docker-image: 
-	cd docker; \
-	docker build --quiet --tag $(PROJECT_NAME) .
+	cd docker; docker build --quiet --tag $(PROJECT_NAME) .
 
 ## Run the docker image
 docker-run:
