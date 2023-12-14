@@ -2,7 +2,7 @@
 title: A Template for Data-Centric Manuscripting in Markdown
 author:
 - name: Elijah Knaap
-  affiliation: University of California-Riverside
+  affiliation: San Diego State University
   email: knaap@ucr.edu
 - name: Someone Else
   affiliation: University of Neverland

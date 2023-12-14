@@ -3,6 +3,8 @@ import shutil
 import subprocess
 from cookiecutter import main
 import pytest
+from warnings import warn
+
 
 CCDS_ROOT = os.path.abspath(os.path.join(__file__, os.pardir, os.pardir))
 
@@ -70,8 +72,8 @@ def test_folders(default_baked_project):
 
 
 def no_curlies(filepath):
-    """ Utility to make sure no curly braces appear in a file.
-        That is, was jinja able to render everthing?
+    """Utility to make sure no curly braces appear in a file.
+    That is, was jinja able to render everthing?
     """
     with open(filepath, "r") as f:
         data = f.read()
@@ -85,6 +87,17 @@ def no_curlies(filepath):
 
 def test_paper(default_baked_project):
     """Test whether the paper gets compiled."""
-    os.system(f" cd {default_baked_project}; make paper")
-    paper_path = os.path.join(default_baked_project, f"paper/compiled/project_name.pdf")
+    output = subprocess.run(
+        f" cd {default_baked_project}; make paper",
+        shell=True,
+        capture_output=True,
+        text=True,
+    )
+
+    warn(output.stdout, stacklevel=1)
+    warn(output.stderr, stacklevel=1)
+
+    paper_path = os.path.join(
+        default_baked_project, "paper", "compiled", "project_name.pdf"
+    )
     assert os.path.exists(paper_path)
