@@ -36,10 +36,10 @@ pandoc-latex-admonition:  # define different colors for each author
   - classes: [auth2]
     color: red
 numbersections: true
-header-includes:  | #[]  
 # additional latex pkgs if necessary
 # no need to install these, tectonic will handle everything
-# keep snapshot to use make tex-generic command
+# keep snapshot to use `make tex-generic` command
+header-includes:  | 
   \usepackage{longtable}
   \usepackage{snapshot}
 
