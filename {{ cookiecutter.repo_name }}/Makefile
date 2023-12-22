@@ -95,8 +95,8 @@ tex:
 	--pdf-engine=tectonic --template=.pandoc/{{ cookiecutter.document_template }}.template --filter pandoc-include \
 	--filter pandoc-crossref --filter pandoc-latex-admonition --biblatex -o compiled/$(PROJECT_NAME).tex;
 
-## Build latex from the current draft without formatting 
-tex-vanilla:
+## Build unformatted latex from the current draft 
+tex-generic: extract-refs
 	@source "$(CONDA_BASE)/bin/activate" $(CONDA_ENVIRONMENT);\
 	cd paper;\
 	pandoc $(SRC) -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -w latex -s \

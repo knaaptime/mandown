@@ -39,8 +39,10 @@ numbersections: true
 header-includes:  | #[]  
 # additional latex pkgs if necessary
 # no need to install these, tectonic will handle everything
-# (no need to keep longtable)
+# keep snapshot to use `make tex-generic` command
   \usepackage{longtable}
+  \usepackage{snapshot}
+
 ---
 
 !include introduction.md

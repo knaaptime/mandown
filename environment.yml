@@ -19,3 +19,4 @@ dependencies:
   - pip:
     - pandoc-include
     - pandoc-latex-admonition
+    - manitex
