@@ -73,7 +73,7 @@ html:
 	@source "$(CONDA_BASE)/bin/activate" $(CONDA_ENVIRONMENT);\
 	cd paper;\
 	pandoc $(SRC) -r markdown+simple_tables+table_captions+yaml_metadata_block+smart \
-	--self-contained -w html --resource-path=.:$(PWD) --template=.pandoc/html.template \
+	--embed-resources --standalone -w html --resource-path=.:$(PWD) --template=.pandoc/html.template \
 	--katex --css=.pandoc/marked/kultiad-serif.css --filter pandoc-include --filter pandoc-crossref \
 	--filter pandoc-latex-admonition --citeproc -o compiled/$(PROJECT_NAME).html;
 
