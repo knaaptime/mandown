@@ -101,7 +101,11 @@ tex-generic: extract-refs
 	cd paper;\
 	pandoc $(SRC) -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -w latex -s \
 	--pdf-engine=tectonic --filter pandoc-include \
-	--filter pandoc-crossref --filter pandoc-latex-admonition --citeproc -o compiled/$(PROJECT_NAME).tex;
+	--filter pandoc-crossref --filter pandoc-latex-admonition --citeproc -o $(PROJECT_NAME)_generic.tex; \
+	tectonic $(PROJECT_NAME)_generic.tex; \
+	mv $(PROJECT_NAME)_generic.tex compiled/$(PROJECT_NAME)_generic.tex; \
+	mv $(PROJECT_NAME)_generic.dep compiled/$(PROJECT_NAME)_generic.dep; \
+	liftup 'compiled'
 
 ## Build pdf from current draft
 pdf:

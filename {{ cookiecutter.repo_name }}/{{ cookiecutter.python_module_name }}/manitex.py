@@ -3,12 +3,24 @@ import os
 import os.path
 import shutil
 import errno
-import tempfile
+import argparse
 from pathlib import PurePath
 
-dirpath = tempfile.mkdtemp()  # use a tempdir if outputdir not specified
 
-cwd = os.getcwd()
+description = 'Prepare single directory for submission'
+parser = argparse.ArgumentParser(description=description)
+parser.add_argument('main', default='compiled', help="path to directory with dep and tex files", type=str)
+#parser.add_argument("--outputdir", help="output directory for manifest",default="manifest")
+parser.add_argument("--extensions", help="image file extensions",
+                    default=['pdf', 'pdf_tex', 'png', 'jpg'])
+
+args = parser.parse_args()
+
+BASE_DIR = args.main
+DEP_FILE = PurePath(BASE_DIR,'{{ cookiecutter.repo_name }}_generic.dep')
+TEX_FILE =  PurePath(BASE_DIR,'{{ cookiecutter.repo_name }}_generic.tex')
+EXTENSIONS = args.extensions
+
 
 def get_input_files(DEP_FILE):
     r"""Check for \input files to add to Manifest."""
@@ -57,9 +69,8 @@ def copy_images(DEP_FILE, EXTENSIONS=None):
     fns = strip_path(imgs)
     movers = zip(imgs, fns)
     for image in movers:
-        print(image[0])
         print(image[1])
-        shutil.copy2(image[0], 'compiled')
+        shutil.copy2(image[0], BASE_DIR)
 
 
 def rewrite_tex_file(tex_file, DEP_FILE, EXTENSIONS=None):
@@ -86,46 +97,9 @@ def make_sure_path_exists(path):
 
 def main():
     """Wrap application."""
-    image_files = get_image_files()
-    file_list = []
-    manifest = ["# File list"]
-    MAIN_PDF = DEP_FILE_BASE + ".pdf"
-    file_list.append(MAIN_PDF)
-    manifest.append(f'- {MAIN_PDF}:\t compiled master pdf')
-    file_list.append(MAIN_FILE)
-    manifest.append(f'- {MAIN_FILE}:\t master tex file')
-    file_list.append(BIB_FILE)
-    manifest.append(f'- {BIB_FILE}:\t bib entries file')
-    for i, file_name in enumerate(image_files):
-        manifest.append(f'- {file_name}:\t Figure {i+1}')
-        file_list.append(file_name)
-    input_files = get_input_files()
-    for i, file_name in enumerate(input_files):
-        manifest.append(f'- {file_name}:\t Input tex file')
-        file_list.append(file_name)
-    print("\n".join(manifest))
-    print(file_list)
-
-    # create manifest directory (if it doesnt exist)
-    if not os.path.exists(TARGET_DIR):
-        os.makedirs(TARGET_DIR)
-
-    # copy files over to manifest directory
-    for file_name in file_list:
-        dest = os.path.join(TARGET_DIR, file_name)
-        path = os.path.dirname(dest)
-        make_sure_path_exists(path)
-        shutil.copyfile(file_name, dest)
-        print(f"{file_name} not added.")
-
-    # write manifest list as README.md
-    with open(os.path.join(TARGET_DIR, 'README.md'), 'w') as readme:
-        readme.write("\n".join(manifest))
-
-    # create archive
-    shutil.make_archive(DEP_FILE_BASE, 'zip', TARGET_DIR)
-
-    if TMP_FLAG:
-        shutil.rmtree(dirpath)
+    copy_images(DEP_FILE, EXTENSIONS)
+    rewrite_tex_file(TEX_FILE, DEP_FILE, EXTENSIONS)
 
 
+if __name__ == '__main__':
+    main()
