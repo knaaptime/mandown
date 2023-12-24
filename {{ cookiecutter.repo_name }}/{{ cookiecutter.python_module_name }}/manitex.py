@@ -10,7 +10,6 @@ from pathlib import PurePath
 description = 'Prepare single directory for submission'
 parser = argparse.ArgumentParser(description=description)
 parser.add_argument('main', default='compiled', help="path to directory with dep and tex files", type=str)
-#parser.add_argument("--outputdir", help="output directory for manifest",default="manifest")
 parser.add_argument("--extensions", help="image file extensions",
                     default=['pdf', 'pdf_tex', 'png', 'jpg'])
 

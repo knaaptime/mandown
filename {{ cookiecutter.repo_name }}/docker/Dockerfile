@@ -2,7 +2,7 @@
 # the `--platform=linux/amd64` section could be removed if all packages build natively (still causes trouble on osx silicon)
 FROM --platform=linux/amd64 condaforge/mambaforge:latest
 # ignore this step if using non-linux...
-RUN apt update && apt install make -y --no-install-recommends 
+RUN apt update && apt install build-essential -y --no-install-recommends 
 RUN mamba install --name base --yes conda-lock --channel conda-forge
 COPY --chown=$MAMBA_USER:$MAMBA_USER conda-lock.yml /tmp/conda-lock.yml
 RUN mamba lock install /tmp/conda-lock.yml --name {{ cookiecutter.conda_environment }} && \

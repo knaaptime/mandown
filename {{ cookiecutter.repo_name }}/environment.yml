@@ -22,5 +22,4 @@ dependencies:
     - pandoc-include                 # necessary to compile the paper
     - pandoc-latex-admonition        # necessary to compile the paper
     - stargazer                      # good-looking regression tables
-    - manitex                        # create manifest file 
     # add any dependencies not available on conda here (e.g. specific git branch/hash)
