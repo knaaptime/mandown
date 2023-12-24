@@ -36,8 +36,7 @@ environment-freeze:
 
 ## Create a static docker image from a conda-lock file
 docker-image: 
-	cd docker; \
-	docker build --quiet --tag $(PROJECT_NAME) .
+	cd docker; docker build --quiet --tag $(PROJECT_NAME) .
 
 ## Run the docker image
 docker-run:
@@ -74,7 +73,7 @@ html:
 	@source "$(CONDA_BASE)/bin/activate" $(CONDA_ENVIRONMENT);\
 	cd paper;\
 	pandoc $(SRC) -r markdown+simple_tables+table_captions+yaml_metadata_block+smart \
-	--self-contained -w html --resource-path=.:$(PWD) --template=.pandoc/html.template \
+	--embed-resources --standalone -w html --resource-path=.:$(PWD) --template=.pandoc/html.template \
 	--katex --css=.pandoc/marked/kultiad-serif.css --filter pandoc-include --filter pandoc-crossref \
 	--filter pandoc-latex-admonition --citeproc -o compiled/$(PROJECT_NAME).html;
 
@@ -96,13 +95,17 @@ tex:
 	--pdf-engine=tectonic --template=.pandoc/{{ cookiecutter.document_template }}.template --filter pandoc-include \
 	--filter pandoc-crossref --filter pandoc-latex-admonition --biblatex -o compiled/$(PROJECT_NAME).tex;
 
-## Build latex from the current draft without formatting 
-tex-vanilla:
+## Build unformatted latex from the current draft 
+tex-generic: extract-refs
 	@source "$(CONDA_BASE)/bin/activate" $(CONDA_ENVIRONMENT);\
 	cd paper;\
 	pandoc $(SRC) -r markdown+simple_tables+table_captions+yaml_metadata_block+smart -w latex -s \
 	--pdf-engine=tectonic --filter pandoc-include \
-	--filter pandoc-crossref --filter pandoc-latex-admonition --citeproc -o compiled/$(PROJECT_NAME).tex;
+	--filter pandoc-crossref --filter pandoc-latex-admonition --citeproc -o $(PROJECT_NAME)_generic.tex; \
+	tectonic $(PROJECT_NAME)_generic.tex; \
+	mv $(PROJECT_NAME)_generic.tex compiled/$(PROJECT_NAME)_generic.tex; \
+	mv $(PROJECT_NAME)_generic.dep compiled/$(PROJECT_NAME)_generic.dep; \
+	liftup 'compiled'
 
 ## Build pdf from current draft
 pdf:

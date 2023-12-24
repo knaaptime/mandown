@@ -21,6 +21,9 @@ include = [
     "{{ cookiecutter.python_module_name }}.*"
 ]
 
+[project.scripts]
+liftup = "{{ cookiecutter.python_module_name }}.manitex:main"
+
 [project.optional-dependencies]
 dev = ["pre-commit"]
 docs = [

@@ -4,7 +4,8 @@ import subprocess
 from cookiecutter import main
 import pytest
 from warnings import warn
-
+import pytest
+import sys
 
 CCDS_ROOT = os.path.abspath(os.path.join(__file__, os.pardir, os.pardir))
 
@@ -84,7 +85,8 @@ def no_curlies(filepath):
 
     return not any(template_strings_in_file)
 
-
+@pytest.mark.skipif(sys.platform.startswith('win'), reason='you need to install `make` yourself on windows')
+# everything works on windows as long as you can get `make` installed...
 def test_paper(default_baked_project):
     """Test whether the paper gets compiled."""
     output = subprocess.run(
