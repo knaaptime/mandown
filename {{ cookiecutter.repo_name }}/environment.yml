@@ -8,7 +8,7 @@ dependencies:
   - jupyterlab                      # necessary to run notebooks
   - pandas >=1.0                    # generate markdown tables
   - tabulate                        # generate markdown tables
-  - pandoc >=2.12                   # necessary to compile the paper
+  - pandoc >=3.1.12                 # necessary to compile the paper
   - pandoc-crossref >=0.3.10        # necessary to compile the paper
   - tectonic                        # necessary to compile the paper
   - watermark                       # add metadata to notebooks
@@ -16,6 +16,7 @@ dependencies:
   - gh                              # interact with github CLI
   - conda-lock                      # allow freezing of environments for docker builds
   - make                            # ensure makefile commands are available
+  - quarto
   # add additional conda reqs here
   - pip
   - pip:
