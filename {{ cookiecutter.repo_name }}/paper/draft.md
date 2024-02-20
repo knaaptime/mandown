@@ -48,7 +48,7 @@ header-includes:  |
 
 !include introduction.md
 
-!include lit_review.md
+!include `lit_review.md`
 
 !include methods.md
 
